@@ -19,32 +19,37 @@ class AuthenticationProvider {
         .createUserWithEmailAndPassword(email: email, password: password);
 
     return _setUser(
-          authResult.user,
-          displayName: displayName,
-          username: username,
-          avatarColorIndex: avatarColorIndex,
-          phoneNumber: phoneNumber,
-        );
-      }
-    
-      Future<void> sendPasswordResetEmail(String email) async {
-        await _firebaseAuth.sendPasswordResetEmail(email: email);
-      }
-    
-      Stream<DocumentSnapshot> currentUser() {
-        //final FirebaseUser user = await _firebaseAuth.currentUser();
-        Stream<DocumentSnapshot> doc =
-            FirestoreService.instance.fetchDocumentStream(
-          documentPath: "_username",
-          collectionPath: 'users',
-        );
-    
-        return doc;
-      }
-    
-      Future<void> signOut() async {
-        return await _firebaseAuth.signOut();
-      }
-    
-      Future _setUser(User user, {String displayName, String username, int avatarColorIndex, String phoneNumber, searchCases}) {}
+      authResult.user,
+      displayName: displayName,
+      username: username,
+      avatarColorIndex: avatarColorIndex,
+      phoneNumber: phoneNumber,
+    );
+  }
+
+  Future<void> sendPasswordResetEmail(String email) async {
+    await _firebaseAuth.sendPasswordResetEmail(email: email);
+  }
+
+  Stream<DocumentSnapshot> currentUser() {
+    //final FirebaseUser user = await _firebaseAuth.currentUser();
+    Stream<DocumentSnapshot> doc =
+        FirestoreService.instance.fetchDocumentStream(
+      documentPath: "_username",
+      collectionPath: 'users',
+    );
+
+    return doc;
+  }
+
+  Future<void> signOut() async {
+    return await _firebaseAuth.signOut();
+  }
+
+  Future _setUser(User user,
+      {String displayName,
+      String username,
+      int avatarColorIndex,
+      String phoneNumber,
+      searchCases}) {}
 }
